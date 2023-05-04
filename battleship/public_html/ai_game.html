@@ -1,0 +1,376 @@
+<!-- Andrew Waugaman, Elodie Hilbert, Mingqian Fu
+This is the PvAI game page for our battleship which contains a navbar, the two boards, buttons for
+rotating your ship or leaving the game, how to play instructions, and the leaderboard. The grids
+for the two boards are represented by tables.-->
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+    <script src="./ai.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <title>Battleship</title>
+  </head>
+
+  <body onload="javascript:assignFunctions()" onbeforeunload="javascript:leaveGame(true)" class="scroll-top"
+    data-bs-spy="scroll"
+    data-bs-target=".navbar"
+    data-bs-offset="100">
+
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark" style="background-color: #722120">
+      <div class="container">
+        <a href="./home.html" class="navbar-brand">
+          <i class="bi bi-house-fill"></i>
+        </a>
+        <button class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav-collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-collapse">
+          <div class="navbar-nav ms-auto" role="list">
+            <a href="./index.html" class="nav-link">Sign Up or Login</a>
+            <div role="listitem" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="leaderboardDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Leaderboards
+              </a>
+              <div class="dropdown-menu" aria-labelledby="leaderboardDropdown">
+                <a class="dropdown-item" href="#leaderboard-target" onclick="javascript:getLeaderboard(0, 0)">Player Games Leaderboard</a>
+                <a class="dropdown-item" href="#leaderboard-target" onclick="javascript:getLeaderboard(0, 1)">AI Games Leaderboard</a>
+                <a class="dropdown-item" href="#leaderboard-target" onclick="javascript:getPlayerLeaderboard(0)">Players Leaderboard</a>
+              </div>
+            </div>
+            <a href="#rotate-button" class="nav-link">How to Play</a>
+            <div role="listitem" class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="gameDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Play Battleship
+              </a>
+              <div class="dropdown-menu" aria-labelledby="gameDropdown">
+                <a class="dropdown-item" href="./game.html">Play against another player</a>
+                <a class="dropdown-item" href="./ai_game.html">Play against the computer</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div id="game-status">Place Ships</div>
+
+    <div id="main">
+
+      <div id="user">
+        <h1>User Board</h1>
+        <table id="board2">
+          <tr>
+            <td id="2square0-0"></td>
+            <td id="2square0-1"></td>
+            <td id="2square0-2"></td>
+            <td id="2square0-3"></td>
+            <td id="2square0-4"></td>
+            <td id="2square0-5"></td>
+            <td id="2square0-6"></td>
+            <td id="2square0-7"></td>
+            <td id="2square0-8"></td>
+            <td id="2square0-9"></td>
+          </tr>
+          <tr>
+            <td id="2square1-0"></td>
+            <td id="2square1-1"></td>
+            <td id="2square1-2"></td>
+            <td id="2square1-3"></td>
+            <td id="2square1-4"></td>
+            <td id="2square1-5"></td>
+            <td id="2square1-6"></td>
+            <td id="2square1-7"></td>
+            <td id="2square1-8"></td>
+            <td id="2square1-9"></td>
+          </tr>
+          <tr>
+            <td id="2square2-0"></td>
+            <td id="2square2-1"></td>
+            <td id="2square2-2"></td>
+            <td id="2square2-3"></td>
+            <td id="2square2-4"></td>
+            <td id="2square2-5"></td>
+            <td id="2square2-6"></td>
+            <td id="2square2-7"></td>
+            <td id="2square2-8"></td>
+            <td id="2square2-9"></td>
+          </tr>
+          <tr>
+            <td id="2square3-0"></td>
+            <td id="2square3-1"></td>
+            <td id="2square3-2"></td>
+            <td id="2square3-3"></td>
+            <td id="2square3-4"></td>
+            <td id="2square3-5"></td>
+            <td id="2square3-6"></td>
+            <td id="2square3-7"></td>
+            <td id="2square3-8"></td>
+            <td id="2square3-9"></td>
+          </tr>
+          <tr>
+            <td id="2square4-0"></td>
+            <td id="2square4-1"></td>
+            <td id="2square4-2"></td>
+            <td id="2square4-3"></td>
+            <td id="2square4-4"></td>
+            <td id="2square4-5"></td>
+            <td id="2square4-6"></td>
+            <td id="2square4-7"></td>
+            <td id="2square4-8"></td>
+            <td id="2square4-9"></td>
+          </tr>
+          <tr>
+            <td id="2square5-0"></td>
+            <td id="2square5-1"></td>
+            <td id="2square5-2"></td>
+            <td id="2square5-3"></td>
+            <td id="2square5-4"></td>
+            <td id="2square5-5"></td>
+            <td id="2square5-6"></td>
+            <td id="2square5-7"></td>
+            <td id="2square5-8"></td>
+            <td id="2square5-9"></td>
+          </tr>
+          <tr>
+            <td id="2square6-0"></td>
+            <td id="2square6-1"></td>
+            <td id="2square6-2"></td>
+            <td id="2square6-3"></td>
+            <td id="2square6-4"></td>
+            <td id="2square6-5"></td>
+            <td id="2square6-6"></td>
+            <td id="2square6-7"></td>
+            <td id="2square6-8"></td>
+            <td id="2square6-9"></td>
+          </tr>
+          <tr>
+            <td id="2square7-0"></td>
+            <td id="2square7-1"></td>
+            <td id="2square7-2"></td>
+            <td id="2square7-3"></td>
+            <td id="2square7-4"></td>
+            <td id="2square7-5"></td>
+            <td id="2square7-6"></td>
+            <td id="2square7-7"></td>
+            <td id="2square7-8"></td>
+            <td id="2square7-9"></td>
+          </tr>
+          <tr>
+            <td id="2square8-0"></td>
+            <td id="2square8-1"></td>
+            <td id="2square8-2"></td>
+            <td id="2square8-3"></td>
+            <td id="2square8-4"></td>
+            <td id="2square8-5"></td>
+            <td id="2square8-6"></td>
+            <td id="2square8-7"></td>
+            <td id="2square8-8"></td>
+            <td id="2square8-9"></td>
+          </tr>
+          <tr>
+            <td id="2square9-0"></td>
+            <td id="2square9-1"></td>
+            <td id="2square9-2"></td>
+            <td id="2square9-3"></td>
+            <td id="2square9-4"></td>
+            <td id="2square9-5"></td>
+            <td id="2square9-6"></td>
+            <td id="2square9-7"></td>
+            <td id="2square9-8"></td>
+            <td id="2square9-9"></td>
+          </tr>
+        </table>
+        <button id="rotate-button" onclick="javascript:rotate()">Rotate Ship</button>
+      </div>
+
+      <div id="opponent">
+        <h1 id="opponenttext">AI Board</h1>
+        <table id="board1">
+          <tr>
+            <td id="1square0-0"></td>
+            <td id="1square0-1"></td>
+            <td id="1square0-2"></td>
+            <td id="1square0-3"></td>
+            <td id="1square0-4"></td>
+            <td id="1square0-5"></td>
+            <td id="1square0-6"></td>
+            <td id="1square0-7"></td>
+            <td id="1square0-8"></td>
+            <td id="1square0-9"></td>
+          </tr>
+          <tr>
+            <td id="1square1-0"></td>
+            <td id="1square1-1"></td>
+            <td id="1square1-2"></td>
+            <td id="1square1-3"></td>
+            <td id="1square1-4"></td>
+            <td id="1square1-5"></td>
+            <td id="1square1-6"></td>
+            <td id="1square1-7"></td>
+            <td id="1square1-8"></td>
+            <td id="1square1-9"></td>
+          </tr>
+          <tr>
+            <td id="1square2-0"></td>
+            <td id="1square2-1"></td>
+            <td id="1square2-2"></td>
+            <td id="1square2-3"></td>
+            <td id="1square2-4"></td>
+            <td id="1square2-5"></td>
+            <td id="1square2-6"></td>
+            <td id="1square2-7"></td>
+            <td id="1square2-8"></td>
+            <td id="1square2-9"></td>
+          </tr>
+          <tr>
+            <td id="1square3-0"></td>
+            <td id="1square3-1"></td>
+            <td id="1square3-2"></td>
+            <td id="1square3-3"></td>
+            <td id="1square3-4"></td>
+            <td id="1square3-5"></td>
+            <td id="1square3-6"></td>
+            <td id="1square3-7"></td>
+            <td id="1square3-8"></td>
+            <td id="1square3-9"></td>
+          </tr>
+          <tr>
+            <td id="1square4-0"></td>
+            <td id="1square4-1"></td>
+            <td id="1square4-2"></td>
+            <td id="1square4-3"></td>
+            <td id="1square4-4"></td>
+            <td id="1square4-5"></td>
+            <td id="1square4-6"></td>
+            <td id="1square4-7"></td>
+            <td id="1square4-8"></td>
+            <td id="1square4-9"></td>
+          </tr>
+          <tr>
+            <td id="1square5-0"></td>
+            <td id="1square5-1"></td>
+            <td id="1square5-2"></td>
+            <td id="1square5-3"></td>
+            <td id="1square5-4"></td>
+            <td id="1square5-5"></td>
+            <td id="1square5-6"></td>
+            <td id="1square5-7"></td>
+            <td id="1square5-8"></td>
+            <td id="1square5-9"></td>
+          </tr>
+          <tr>
+            <td id="1square6-0"></td>
+            <td id="1square6-1"></td>
+            <td id="1square6-2"></td>
+            <td id="1square6-3"></td>
+            <td id="1square6-4"></td>
+            <td id="1square6-5"></td>
+            <td id="1square6-6"></td>
+            <td id="1square6-7"></td>
+            <td id="1square6-8"></td>
+            <td id="1square6-9"></td>
+          </tr>
+          <tr>
+            <td id="1square7-0"></td>
+            <td id="1square7-1"></td>
+            <td id="1square7-2"></td>
+            <td id="1square7-3"></td>
+            <td id="1square7-4"></td>
+            <td id="1square7-5"></td>
+            <td id="1square7-6"></td>
+            <td id="1square7-7"></td>
+            <td id="1square7-8"></td>
+            <td id="1square7-9"></td>
+          </tr>
+          <tr>
+            <td id="1square8-0"></td>
+            <td id="1square8-1"></td>
+            <td id="1square8-2"></td>
+            <td id="1square8-3"></td>
+            <td id="1square8-4"></td>
+            <td id="1square8-5"></td>
+            <td id="1square8-6"></td>
+            <td id="1square8-7"></td>
+            <td id="1square8-8"></td>
+            <td id="1square8-9"></td>
+          </tr>
+          <tr>
+            <td id="1square9-0"></td>
+            <td id="1square9-1"></td>
+            <td id="1square9-2"></td>
+            <td id="1square9-3"></td>
+            <td id="1square9-4"></td>
+            <td id="1square9-5"></td>
+            <td id="1square9-6"></td>
+            <td id="1square9-7"></td>
+            <td id="1square9-8"></td>
+            <td id="1square9-9"></td>
+          </tr>
+        </table>
+        <button onclick="javascript:leaveGame(false)">Leave Game</button>
+      </div>
+
+      <div id="score">
+        <h3 onclick="" id="scoretext">Score: 0</h3>
+      </div>
+      
+    </div>
+
+    <section class="container-fluid" id="info-section">
+      <div id="info-target"></div>
+      <h2>How To Play</h2>
+      <p>First if you are a new user, create an account on the login page. Otherwise, log in.</p>
+      <p>Once you get to the home page, you can enter a game, add or interact with friends, or 
+        look at the leaderboard. To add a friend, type their username into the text box and click it,
+        and they can choose to accept or reject it when they see it. You can also invite friends by
+        clicking the relevant button or join friends who are currently inviting you. To enter a game,
+        either invite or join a friend or click on the dropdown menu and choose whether to face a random
+        player opponent or an AI opponent.</p>
+      <p>Once in a game, you start by placing your ships. To place your ships, simply hover with your
+        mouse over your board and click to place them. If you want to rotate your ship, you must do so
+        before you place your ship by clicking the rotate button. After you've placed your ships the
+        server will match you with the first other waiting player found. You can see the current state of
+        the game above the boards.
+      </p>
+      <p>
+        To take a shot hover your mouse over your opponent's board and you should see a red square if it's
+        your turn. You may shoot anywhere on the board that you haven't shot already. The goal of the
+        game is to sink all of your opponents ships.
+      </p>
+    </section>
+
+    <section class="container-fluid" id="leaderboard-section">
+      <div id="leaderboard-target"></div>
+      <h2>LeaderBoard</h2>
+      <select name="leaderboard-option" id="leaderboard-option" oninput="updateLeaderboard()">
+        <option value="PvP">PvP</option>
+        <option value="PvAI">PvAI</option>
+        <option value="Player Wins">Player Wins</option>
+      </select>
+      <table id="leaderboard">
+              
+      </table>
+      <div id="leaderboard-buttons">
+        <button id="next-button" onclick="javascript:getLeaderboard(10, 0)">Next 10 Entries</button>
+        <button id="last-button" onclick="javascript:getLeaderboard(10, 1)">Last 10 Entries</button>
+      </div>
+    </section>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  
+  </body>
+</html>

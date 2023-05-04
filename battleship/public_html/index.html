@@ -1,0 +1,102 @@
+<!-- Andrew Waugaman, Elodie Hilbert, Mingqian Fu
+This is the login page for our battleship which contains a navbar, a how to play section,
+and sections for creating new accounts or logging in to existing accounts.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle&display=swap" rel="stylesheet">
+    <script src="./client.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <title>Home Page</title>
+  </head>
+
+  <body class="scroll-top"
+    data-bs-spy="scroll"
+    data-bs-target=".navbar"
+    data-bs-offset="100">
+    
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark" style="background-color: #722120">
+      <div class="container">
+        <a href="./home.html" class="navbar-brand">
+          <i class="bi bi-house-fill"></i>
+        </a>
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav-collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="collapse navbar-collapse" id="nav-collapse">
+            <div class="navbar-nav ms-auto" role="list">
+              <a href="./index.html" class="nav-link">Sign Up or Login</a>
+              <a href="#info-target" class="nav-link">How to Play</a>
+            </div>
+          </div>
+      </div>
+    </nav>
+
+    <h1 id="login-header">Login or Create an Account</h1>
+      
+    <div id="loginpage">
+      <h1 id="login">Login</h1>
+      <div>
+        <label for="lusername">Username</label>
+        <input type="text" name="lusername" id="lusername" class="username">
+      </div>
+      <div>
+        <label for="lpassword">Password</label>
+        <input type="text" name="lpassword" id="lpassword" class="password">
+      </div>
+      <div>
+        <button onclick="javascript:login()">Login</button>
+      </div>
+      <h1>Create Account</h1>
+      <div>
+          <label for="cusername">Username</label>
+          <input type="text" name="cusername" id="cusername" class="username">
+      </div>
+      <div>
+          <label for="cpassword">Password</label>
+          <input type="text" name="cpassword" id="cpassword" class="password">
+      </div>
+      <div>
+          <button onclick="javascript:addUser()">Create</button>
+      </div>
+    </div>
+
+    <section class="container-fluid" id="info-section">
+      <div id="info-target"></div>
+      <h2>How To Play</h2>
+      <p>First if you are a new user, create an account on the login page. Otherwise, log in.</p>
+      <p>Once you get to the home page, you can enter a game, add or interact with friends, or 
+        look at the leaderboard. To add a friend, type their username into the text box and click it,
+        and they can choose to accept or reject it when they see it. You can also invite friends by
+        clicking the relevant button or join friends who are currently inviting you. To enter a game,
+        either invite or join a friend or click on the dropdown menu and choose whether to face a random
+        player opponent or an AI opponent.</p>
+      <p>Once in a game, you start by placing your ships. To place your ships, simply hover with your
+        mouse over your board and click to place them. If you want to rotate your ship, you must do so
+        before you place your ship by clicking the rotate button. After you've placed your ships the
+        server will match you with the first other waiting player found. You can see the current state of
+        the game above the boards.
+      </p>
+      <p>
+        To take a shot hover your mouse over your opponent's board and you should see a red square if it's
+        your turn. You may shoot anywhere on the board that you haven't shot already. The goal of the
+        game is to sink all of your opponents ships.
+      </p>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  
+  </body>
+</html>
